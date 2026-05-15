@@ -68,7 +68,7 @@ export default function Contact() {
                 }
                 className="glow-border group block p-6 rounded-2xl bg-surface border border-border hover:border-accent/30 transition-all duration-300 text-center"
               >
-                <div className="text-accent mx-auto mb-3 group-hover:scale-110 transition-transform duration-200">
+                <div className="flex items-center justify-center w-10 h-10 mx-auto mb-3 text-accent group-hover:scale-110 transition-transform duration-200">
                   <Icon />
                 </div>
                 <p className="text-sm font-semibold text-foreground mb-1">
