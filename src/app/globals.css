@@ -148,6 +148,10 @@ section[id] {
   font-size: 1.1rem;
 }
 
+.arrow-link--download::after {
+  content: "↓";
+}
+
 .arrow-link:hover {
   padding-left: 0.5rem;
   color: var(--signal);
@@ -262,6 +266,7 @@ section[id] {
 .hero__copy {
   display: flex;
   position: relative;
+  z-index: 2;
   min-width: 0;
   flex-direction: column;
   justify-content: space-between;
@@ -322,9 +327,17 @@ section[id] {
   line-height: 1.45;
 }
 
+.hero__actions {
+  display: flex;
+  min-width: 13rem;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
 .hero__portrait {
   display: grid;
   position: relative;
+  z-index: 1;
   min-height: 36rem;
   grid-template-rows: 1fr auto;
   align-items: center;
@@ -1228,6 +1241,7 @@ section[id] {
     gap: 1.5rem;
   }
 
+  .hero__actions,
   .hero__statement .arrow-link {
     min-width: 100%;
   }

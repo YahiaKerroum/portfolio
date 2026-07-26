@@ -24,9 +24,18 @@ export default function Hero() {
               learning systems to platforms built for Algeria&apos;s AI
               ecosystem.
             </p>
-            <a className="arrow-link" href="#projects">
-              Examine the systems
-            </a>
+            <div className="hero__actions">
+              <a className="arrow-link" href="#projects">
+                Examine the systems
+              </a>
+              <a
+                className="arrow-link arrow-link--download"
+                download="Yahia-Kerroum-CV.pdf"
+                href="/Yahia-Kerroum-CV.pdf"
+              >
+                Download my CV
+              </a>
+            </div>
           </div>
         </div>
 
