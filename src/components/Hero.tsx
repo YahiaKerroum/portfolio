@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PortraitMotion } from "./MotionPrimitives";
 
 export default function Hero() {
   return (
@@ -7,11 +8,6 @@ export default function Hero() {
         <div className="hero__copy">
           <div className="hero__masthead">
             <span className="eyebrow">Issue 01 / Portfolio 2026</span>
-            <p className="hero__coordinates">
-              36.7538° N / 3.0588° E
-              <br />
-              Algiers, Algeria
-            </p>
           </div>
 
           <div className="hero__title-wrap">
@@ -35,30 +31,18 @@ export default function Hero() {
         </div>
 
         <figure className="hero__portrait">
-          <Image
-            alt="Portrait of Yahia Kerroum"
-            fill
-            priority
-            sizes="(max-width: 760px) 100vw, 38vw"
-            src="/profile.jpg"
-          />
-          <figcaption className="portrait__label">
-            Portrait / Engineer / Algiers
+          <PortraitMotion>
+            <Image
+              alt="Portrait of Yahia Kerroum"
+              fill
+              priority
+              sizes="(max-width: 760px) 296px, 360px"
+              src="/profile.jpg"
+            />
+          </PortraitMotion>
+          <figcaption className="portrait__caption">
+            Yahia Kerroum / AI Engineer
           </figcaption>
-          <div className="portrait__evidence">
-            <div>
-              <strong>72</strong>
-              <span>API routes</span>
-            </div>
-            <div>
-              <strong>92.8%</strong>
-              <span>CV accuracy</span>
-            </div>
-            <div>
-              <strong>2×</strong>
-              <span>Liveness layers</span>
-            </div>
-          </div>
         </figure>
       </div>
     </section>

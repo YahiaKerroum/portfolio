@@ -1,3 +1,5 @@
+import { Reveal } from "./MotionPrimitives";
+
 const capabilities = [
   {
     index: "A",
@@ -6,9 +8,13 @@ const capabilities = [
       "Computer vision",
       "NLP",
       "Active learning",
+      "Federated learning",
+      "Reinforcement learning",
+      "Recommendation systems",
       "Face recognition",
       "Heuristic search",
       "Genetic algorithms",
+      "Constraint satisfaction",
       "Clustering",
       "Regression",
       "TF-IDF",
@@ -21,12 +27,14 @@ const capabilities = [
     items: [
       "Full-stack systems",
       "REST API design",
+      "Mobile development",
       "Clean architecture",
       "Dynamic permissions",
       "RBAC",
       "Authentication",
       "OAuth",
       "Web scraping",
+      "WebSockets",
       "Browser extensions",
     ],
   },
@@ -44,6 +52,11 @@ const capabilities = [
       "React",
       "FastAPI",
       "Flutter",
+      "Pandas",
+      "NumPy",
+      "Scikit-learn",
+      "TensorFlow",
+      "PyTorch",
     ],
   },
   {
@@ -68,20 +81,27 @@ export default function Skills() {
   return (
     <section className="capabilities" id="capabilities">
       <div className="shell">
-        <header className="capabilities__header">
-          <div>
-            <span className="eyebrow">03 / Capability index</span>
-            <h2 className="section-heading">Built across the stack.</h2>
-          </div>
-          <p className="capabilities__note">
-            Tools are selected after the constraint is clear. These are the
-            areas I have used to move systems from idea to deployed software.
-          </p>
-        </header>
+        <Reveal>
+          <header className="capabilities__header">
+            <div>
+              <span className="eyebrow">03 / Capability index</span>
+              <h2 className="section-heading">Built across the stack.</h2>
+            </div>
+            <p className="capabilities__note">
+              Tools are selected after the constraint is clear. These are the
+              areas I have used to move systems from idea to deployed software.
+            </p>
+          </header>
+        </Reveal>
 
         <div>
-          {capabilities.map((capability) => (
-            <div className="capability" key={capability.title}>
+          {capabilities.map((capability, index) => (
+            <Reveal
+              className="capability"
+              delay={index * 0.05}
+              distance={32}
+              key={capability.title}
+            >
               <span className="section-index">{capability.index}</span>
               <h3>{capability.title}</h3>
               <div className="capability__items">
@@ -89,7 +109,7 @@ export default function Skills() {
                   <span key={item}>{item}</span>
                 ))}
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

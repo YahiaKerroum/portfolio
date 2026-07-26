@@ -54,8 +54,7 @@ export default function Navbar() {
     <header className="site-header">
       <div className="site-header__inner">
         <a className="wordmark" href="#top" onClick={() => setOpen(false)}>
-          <span className="wordmark__mark">YK</span>
-          <span className="wordmark__suffix">Algiers Systems Journal</span>
+          My Portfolio
         </a>
 
         <nav

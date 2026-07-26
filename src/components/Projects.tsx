@@ -1,3 +1,5 @@
+import { Reveal, RevealArticle } from "./MotionPrimitives";
+
 interface FeaturedProject {
   number: string;
   title: string;
@@ -17,13 +19,13 @@ const featured: FeaturedProject[] = [
     number: "SYS–001",
     title: "DzairAI",
     subtitle: "Algerian AI Ecosystem Platform",
-    role: "Major contributor / Full-stack",
+    role: "Major contributor / 2025–2026",
     statement:
       "One discovery surface for Algeria’s fragmented AI ecosystem.",
     description:
-      "Researchers, organizations, events, datasets, papers, and open-source repositories come together in a modular platform. Automated GitHub and academic ingestion keeps it current, while the architecture remains ready for self-hosted Algerian deployment.",
+      "Automated Python scrapers ingest Algerian GitHub repositories, academic papers, and AI news into PostgreSQL. I also contributed to multilingual CV parsing and job-matching pipelines, while the platform adds unified search, authenticated profiles, bookmarks, collaboration requests, and dataset previews.",
     stack: "Next.js / TypeScript / PostgreSQL / Prisma / Docker",
-    nodes: ["GitHub + papers", "Ingestion", "Domain API", "Discovery"],
+    nodes: ["Repositories + papers", "Python scrapers", "PostgreSQL", "Discovery"],
     evidence: [
       { value: "72", label: "API routes" },
       { value: "419", label: "Source files" },
@@ -35,17 +37,17 @@ const featured: FeaturedProject[] = [
     number: "SYS–002",
     title: "Adaptive Quiz",
     subtitle: "ML-powered assessment system",
-    role: "Lead / ML + platform",
+    role: "Lead / 2025–2026",
     statement:
       "Classify a student’s level accurately with fewer questions.",
     description:
-      "A nine-stage pipeline reduced 70,851 scraped questions to a balanced set of 1,080 using near-duplicate detection and assisted difficulty labeling. Four active-learning strategies were benchmarked against random selection and validated with real ENSIA student data.",
+      "A Python ML pipeline classifies student knowledge using as few questions as possible across multiple CS modules. Uncertainty Sampling, Entropy Reduction, and Query-by-Committee were benchmarked against a random baseline and validated with real ENSIA student data.",
     stack: "FastAPI / Next.js / PostgreSQL / Scikit-learn / Docker",
-    nodes: ["70,851 questions", "Filter + label", "Active selector", "Classifier"],
+    nodes: ["Question bank", "Difficulty balance", "Active selector", "Classifier"],
     evidence: [
-      { value: "92.8%", label: "CV accuracy" },
-      { value: "1,080", label: "Balanced questions" },
-      { value: "9", label: "Pipeline stages" },
+      { value: "3", label: "Active strategies" },
+      { value: "Multi", label: "CS modules" },
+      { value: "ENSIA", label: "Real-data validation" },
     ],
     source: "https://github.com/YahiaKerroum/QuizPlatform",
   },
@@ -53,11 +55,11 @@ const featured: FeaturedProject[] = [
     number: "SYS–003",
     title: "FaceAttend",
     subtitle: "Secure face-recognition attendance",
-    role: "Major contributor / AI security",
+    role: "Major contributor / 2026",
     statement:
       "Two independent liveness layers make spoofing materially harder.",
     description:
-      "Browser-side MediaPipe detects blink events and micro-movement while a server-side MobileNetV2 model analyzes face texture. ArcFace embeddings and FAISS cosine search verify identity, and every attempt lands in an immutable audit log.",
+      "Browser-side MediaPipe and a server-side MobileNetV2 model provide two-tier anti-spoofing. ArcFace embeddings and FAISS verify identity, Redis cooldowns prevent double-marking, and WebSocket updates, immutable audit logs, and student disputes complete the attendance workflow.",
     stack: "FastAPI / React / MediaPipe / ArcFace / FAISS / PyTorch",
     nodes: ["Camera", "FaceMesh", "MobileNetV2", "ArcFace + FAISS"],
     evidence: [
@@ -71,11 +73,11 @@ const featured: FeaturedProject[] = [
     number: "SYS–004",
     title: "DCMS",
     subtitle: "Dental clinic management system",
-    role: "Lead / Product engineering",
+    role: "Lead / 2025",
     statement:
       "Operational control without redeploying when staff access changes.",
     description:
-      "Managers modify granular resource.action permissions at runtime. The platform coordinates dental records, an interactive orthogram, conflict-aware appointments, Drive-backed documents, and role-personalized analytics across five operational domains.",
+      "Managers modify granular resource.action permissions at runtime. The platform coordinates a 1–32 dental orthogram, multi-session treatments, conflict-aware appointments, Drive-backed documents, payments and expense approvals, role-personalized analytics, and regulatory CSV exports.",
     stack: "React / TypeScript / Node.js / PostgreSQL / Chart.js / Docker",
     nodes: ["Staff role", "Permission engine", "Clinic workflow", "Analytics"],
     evidence: [
@@ -153,20 +155,27 @@ export default function Projects() {
   return (
     <section className="projects" id="projects">
       <div className="shell">
-        <header className="projects__header">
-          <div>
-            <span className="eyebrow">02 / Selected systems</span>
-            <h2 className="section-heading">Evidence, not adjectives.</h2>
-          </div>
-          <p className="projects__intro">
-            Four systems, each presented through the engineering decision that
-            defines it. <b>Architecture, constraints, and measured outcomes</b>{" "}
-            take priority over technology badges.
-          </p>
-        </header>
+        <Reveal>
+          <header className="projects__header">
+            <div>
+              <span className="eyebrow">02 / Selected systems</span>
+              <h2 className="section-heading">Evidence, not adjectives.</h2>
+            </div>
+            <p className="projects__intro">
+              Four systems, each presented through the engineering decision
+              that defines it.{" "}
+              <b>Architecture, constraints, and measured outcomes</b> take
+              priority over technology badges.
+            </p>
+          </header>
+        </Reveal>
 
-        {featured.map((project) => (
-          <article className="case-study" key={project.title}>
+        {featured.map((project, index) => (
+          <RevealArticle
+            className="case-study"
+            delay={index * 0.025}
+            key={project.title}
+          >
             <div className="case-study__topline">
               <span className="case-study__number">{project.number}</span>
               <div>
@@ -224,10 +233,10 @@ export default function Projects() {
 
               <SystemMap project={project} />
             </div>
-          </article>
+          </RevealArticle>
         ))}
 
-        <div className="archive">
+        <Reveal className="archive">
           <div className="archive__head">
             <h3>Project archive</h3>
             <span className="section-index">04 additional systems</span>
@@ -249,7 +258,7 @@ export default function Projects() {
               </a>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

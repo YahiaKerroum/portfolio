@@ -1,3 +1,5 @@
+import { Reveal } from "./MotionPrimitives";
+
 const contactLinks = [
   {
     label: "Email",
@@ -25,14 +27,20 @@ export default function Contact() {
   return (
     <section className="contact" id="contact">
       <div className="shell">
-        <div className="contact__topline">
-          <span className="eyebrow">05 / Contact</span>
-          <span className="availability">Available for opportunities</span>
-        </div>
+        <Reveal distance={24}>
+          <div className="contact__topline">
+            <span className="eyebrow">05 / Contact</span>
+            <span className="availability">Available for opportunities</span>
+          </div>
+        </Reveal>
 
-        <h2 className="contact__title">Let&apos;s build something useful.</h2>
+        <Reveal delay={0.06}>
+          <h2 className="contact__title">
+            Let&apos;s build something useful.
+          </h2>
+        </Reveal>
 
-        <div className="contact__bottom">
+        <Reveal className="contact__bottom" delay={0.12} distance={32}>
           <p className="contact__note">
             Open to internships, engineering roles, research collaborations,
             and difficult product problems worth thinking through properly.
@@ -54,7 +62,7 @@ export default function Contact() {
               </a>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

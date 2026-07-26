@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://yahiakerroum-portfolio.vercel.app"),
   title: "Yahia Kerroum — AI Engineer & Systems Builder",
   description:
-    "AI engineer in Algiers building production-grade full-stack platforms, machine-learning pipelines, and intelligent systems.",
+    "Fourth-year AI engineering student in Algiers building deployable full-stack AI systems, web platforms, mobile applications, and ML pipelines.",
   openGraph: {
     title: "Yahia Kerroum — AI Engineer & Systems Builder",
     description:
