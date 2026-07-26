@@ -1,48 +1,54 @@
-"use client";
-
-import { StaggerContainer, StaggerItem, SectionHeader } from "./ScrollAnimations";
-
-const skillGroups = [
+const capabilities = [
   {
-    title: "Programming Languages",
-    items: ["Python", "TypeScript", "JavaScript", "Dart", "SQL", "C++"],
-    gradient: "from-accent to-accent-cyan",
-  },
-  {
-    title: "AI & Machine Learning",
+    index: "A",
+    title: "Machine intelligence",
     items: [
-      "Neural Networks",
-      "Computer Vision",
+      "Computer vision",
       "NLP",
-      "Face Recognition",
-      "Active Learning",
-      "Heuristic Search",
-      "Genetic Algorithms",
+      "Active learning",
+      "Face recognition",
+      "Heuristic search",
+      "Genetic algorithms",
       "Clustering",
-      "Regression Modeling",
-      "Association Rule Mining",
+      "Regression",
       "TF-IDF",
-      "Cross-Validation",
+      "Cross-validation",
     ],
-    gradient: "from-purple-400 to-accent",
   },
   {
-    title: "Software Engineering",
+    index: "B",
+    title: "Product engineering",
     items: [
-      "Clean Architecture",
-      "Design Patterns",
-      "Agile Methodology",
-      "REST API Design",
-      "Dynamic Permission Systems",
-      "Role-Based Access Control",
-      "Web Scraping",
-      "Chrome Extension Development",
-      "Authentication & OAuth",
+      "Full-stack systems",
+      "REST API design",
+      "Clean architecture",
+      "Dynamic permissions",
+      "RBAC",
+      "Authentication",
+      "OAuth",
+      "Web scraping",
+      "Browser extensions",
     ],
-    gradient: "from-accent-cyan to-green-400",
   },
   {
-    title: "Databases & Infrastructure",
+    index: "C",
+    title: "Languages + frameworks",
+    items: [
+      "Python",
+      "TypeScript",
+      "JavaScript",
+      "Dart",
+      "SQL",
+      "C++",
+      "Next.js",
+      "React",
+      "FastAPI",
+      "Flutter",
+    ],
+  },
+  {
+    index: "D",
+    title: "Data + infrastructure",
     items: [
       "PostgreSQL",
       "Redis",
@@ -50,42 +56,42 @@ const skillGroups = [
       "Docker",
       "Nginx",
       "WebSockets",
-      "Git & GitHub",
+      "FAISS",
+      "pgvector",
+      "Git",
+      "Linux",
     ],
-    gradient: "from-accent-light to-accent",
   },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-28 px-6">
-      <div className="max-w-6xl mx-auto">
-        <SectionHeader label="Skills" title="What I Work With" />
+    <section className="capabilities" id="capabilities">
+      <div className="shell">
+        <header className="capabilities__header">
+          <div>
+            <span className="eyebrow">03 / Capability index</span>
+            <h2 className="section-heading">Built across the stack.</h2>
+          </div>
+          <p className="capabilities__note">
+            Tools are selected after the constraint is clear. These are the
+            areas I have used to move systems from idea to deployed software.
+          </p>
+        </header>
 
-        <StaggerContainer className="grid sm:grid-cols-2 gap-6" staggerDelay={0.15}>
-          {skillGroups.map((group) => (
-            <StaggerItem key={group.title}>
-              <div className="glow-border p-6 rounded-2xl bg-surface border border-border h-full">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className={`w-1.5 h-6 rounded-full bg-gradient-to-b ${group.gradient}`} />
-                  <h4 className="text-lg font-semibold text-foreground">
-                    {group.title}
-                  </h4>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <span
-                      key={item}
-                      className="px-3 py-1.5 text-sm rounded-lg bg-background border border-border text-muted hover:text-accent hover:border-accent/30 hover:shadow-sm hover:shadow-accent/5 transition-all duration-200"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
+        <div>
+          {capabilities.map((capability) => (
+            <div className="capability" key={capability.title}>
+              <span className="section-index">{capability.index}</span>
+              <h3>{capability.title}</h3>
+              <div className="capability__items">
+                {capability.items.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
               </div>
-            </StaggerItem>
+            </div>
           ))}
-        </StaggerContainer>
+        </div>
       </div>
     </section>
   );

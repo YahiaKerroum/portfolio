@@ -1,20 +1,30 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
-  title: "Yahia Kerroum | AI Engineer & Full-Stack Developer",
-  description: "Portfolio of Yahia Kerroum — AI Engineering student at ENSIA, building full-stack applications and intelligent systems.",
+  metadataBase: new URL("https://yahiakerroum-portfolio.vercel.app"),
+  title: "Yahia Kerroum — AI Engineer & Systems Builder",
+  description:
+    "AI engineer in Algiers building production-grade full-stack platforms, machine-learning pipelines, and intelligent systems.",
+  openGraph: {
+    title: "Yahia Kerroum — AI Engineer & Systems Builder",
+    description:
+      "Selected systems, engineering decisions, and measurable outcomes.",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
 export default function RootLayout({
@@ -25,9 +35,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${archivo.variable} ${plexMono.variable}`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

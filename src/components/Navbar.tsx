@@ -1,125 +1,93 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#education", label: "Education" },
-  { href: "#contact", label: "Contact" },
+const links = [
+  { href: "#position", label: "Position", index: "01" },
+  { href: "#projects", label: "Systems", index: "02" },
+  { href: "#capabilities", label: "Capabilities", index: "03" },
+  { href: "#education", label: "Education", index: "04" },
+  { href: "#contact", label: "Contact", index: "05" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState("position");
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 50);
+    const sections = links
+      .map(({ href }) => document.querySelector<HTMLElement>(href))
+      .filter((section): section is HTMLElement => section !== null);
 
-      const sections = navLinks.map((l) => l.href.slice(1));
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.getBoundingClientRect().top <= 150) {
-          setActiveSection(sections[i]);
-          break;
+    const updateActiveSection = () => {
+      const pageBottom = window.scrollY + window.innerHeight;
+      const documentBottom = document.documentElement.scrollHeight;
+
+      if (pageBottom >= documentBottom - 4) {
+        setActiveSection(sections.at(-1)?.id ?? "contact");
+        return;
+      }
+
+      const readingLine = window.scrollY + window.innerHeight * 0.34;
+      let current = sections[0]?.id ?? "position";
+
+      for (const section of sections) {
+        if (section.offsetTop <= readingLine) {
+          current = section.id;
         }
       }
+
+      setActiveSection(current);
     };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("hashchange", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
+    };
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/70 backdrop-blur-2xl border-b border-border/50 shadow-lg shadow-background/20"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a
-          href="#"
-          className="text-xl font-bold tracking-tight text-gradient"
-        >
-          YK
+    <header className="site-header">
+      <div className="site-header__inner">
+        <a className="wordmark" href="#top" onClick={() => setOpen(false)}>
+          <span className="wordmark__mark">YK</span>
+          <span className="wordmark__suffix">Algiers Systems Journal</span>
         </a>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-1">
-          {navLinks.map((link) => (
+        <nav
+          aria-label="Primary navigation"
+          className="site-nav"
+          data-open={open}
+        >
+          {links.map((link) => (
             <a
               key={link.href}
+              data-active={activeSection === link.href.slice(1)}
+              data-index={link.index}
               href={link.href}
-              className={`relative text-sm px-4 py-2 rounded-lg transition-colors duration-200 ${
-                activeSection === link.href.slice(1)
-                  ? "text-accent"
-                  : "text-muted hover:text-foreground"
-              }`}
+              onClick={() => setOpen(false)}
             >
               {link.label}
-              {activeSection === link.href.slice(1) && (
-                <motion.div
-                  layoutId="activeNav"
-                  className="absolute inset-0 rounded-lg bg-accent/10 -z-10"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
             </a>
           ))}
-          <a
-            href="#contact"
-            className="ml-4 text-sm px-5 py-2 rounded-lg bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 hover:border-accent/30 transition-all duration-200"
-          >
-            Get in Touch
-          </a>
-        </div>
+        </nav>
 
-        {/* Mobile toggle */}
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-muted hover:text-accent transition-colors"
+          aria-expanded={open}
+          aria-label={open ? "Close navigation" : "Open navigation"}
+          className="nav-toggle"
+          onClick={() => setOpen((current) => !current)}
+          type="button"
         >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          <span aria-hidden="true" className="mono">
+            {open ? "×" : "≡"}
+          </span>
         </button>
       </div>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-surface/95 backdrop-blur-2xl border-b border-border"
-          >
-            <div className="px-6 py-4 flex flex-col gap-3">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`text-sm px-3 py-2 rounded-lg transition-colors ${
-                    activeSection === link.href.slice(1)
-                      ? "text-accent bg-accent/10"
-                      : "text-muted hover:text-foreground"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+    </header>
   );
 }
