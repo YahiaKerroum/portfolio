@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# design tooling scratch
+/.playwright-mcp/
+/.impeccable/review/
+/.impeccable/mocks/
+/.impeccable/legacy/
+/.impeccable/questions/
+/.impeccable/hook.cache.json
+
+# local source material for scripts/ (not part of the site)
+/PROJECTS/
+/scripts/fonts/

@@ -1,0 +1,388 @@
+{
+  "kanoun": {
+    "cover": {
+      "src": "/work/kanoun/cover.webp",
+      "w": 1800,
+      "h": 1012
+    },
+    "shots": [
+      {
+        "src": "/work/kanoun/staff-kitchen.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "staff-kitchen"
+      },
+      {
+        "src": "/work/kanoun/guest-menu-mobile.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "guest-menu-mobile"
+      },
+      {
+        "src": "/work/kanoun/guest-dish-mobile.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "guest-dish-mobile"
+      },
+      {
+        "src": "/work/kanoun/staff-orders.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "staff-orders"
+      },
+      {
+        "src": "/work/kanoun/guest-receipt-mobile.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "guest-receipt-mobile"
+      },
+      {
+        "src": "/work/kanoun/back-office-menu.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "back-office-menu"
+      },
+      {
+        "src": "/work/kanoun/staff-tables.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "staff-tables"
+      },
+      {
+        "src": "/work/kanoun/back-office-reports.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "back-office-reports"
+      },
+      {
+        "src": "/work/kanoun/desktop-launcher.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "desktop-launcher"
+      }
+    ]
+  },
+  "fpl-assistant": {
+    "cover": {
+      "src": "/work/fpl-assistant/cover.webp",
+      "w": 1800,
+      "h": 1012
+    },
+    "shots": [
+      {
+        "src": "/work/fpl-assistant/lineup.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "lineup"
+      },
+      {
+        "src": "/work/fpl-assistant/transfers.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "transfers"
+      },
+      {
+        "src": "/work/fpl-assistant/captain.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "captain"
+      },
+      {
+        "src": "/work/fpl-assistant/fixtures.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "fixtures"
+      },
+      {
+        "src": "/work/fpl-assistant/compare.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "compare"
+      },
+      {
+        "src": "/work/fpl-assistant/news.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "news"
+      }
+    ]
+  },
+  "qima": {
+    "cover": {
+      "src": "/work/qima/cover.webp",
+      "w": 1800,
+      "h": 1012
+    },
+    "shots": [
+      {
+        "src": "/work/qima/00-home.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "00-home"
+      },
+      {
+        "src": "/work/qima/01-estimate.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "01-estimate"
+      },
+      {
+        "src": "/work/qima/02-estimate-gaming.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "02-estimate-gaming"
+      },
+      {
+        "src": "/work/qima/03-deals.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "03-deals"
+      },
+      {
+        "src": "/work/qima/04-market-overview.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "04-market-overview"
+      },
+      {
+        "src": "/work/qima/05-market-condition.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "05-market-condition"
+      },
+      {
+        "src": "/work/qima/06-market-scatter.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "06-market-scatter"
+      }
+    ]
+  },
+  "dzairai": {
+    "cover": {
+      "src": "/work/dzairai/cover.webp",
+      "w": 1800,
+      "h": 1012
+    },
+    "shots": [
+      {
+        "src": "/work/dzairai/home.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "home"
+      },
+      {
+        "src": "/work/dzairai/experts.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "experts"
+      },
+      {
+        "src": "/work/dzairai/datasets.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "datasets"
+      },
+      {
+        "src": "/work/dzairai/dataset-detail.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "dataset-detail"
+      },
+      {
+        "src": "/work/dzairai/events.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "events"
+      },
+      {
+        "src": "/work/dzairai/companies.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "companies"
+      },
+      {
+        "src": "/work/dzairai/news.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "news"
+      },
+      {
+        "src": "/work/dzairai/blog-post.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "blog-post"
+      }
+    ]
+  },
+  "drone-planner": {
+    "cover": {
+      "src": "/work/drone-planner/cover.webp",
+      "w": 1800,
+      "h": 1012
+    },
+    "shots": [
+      {
+        "src": "/work/drone-planner/02-flight-replay.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "02-flight-replay"
+      },
+      {
+        "src": "/work/drone-planner/01-planner.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "01-planner"
+      },
+      {
+        "src": "/work/drone-planner/03-convergence.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "03-convergence"
+      },
+      {
+        "src": "/work/drone-planner/04-search-tree.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "04-search-tree"
+      }
+    ]
+  },
+  "clinicpulse": {
+    "cover": {
+      "src": "/work/clinicpulse/cover.webp",
+      "w": 1800,
+      "h": 1012
+    },
+    "shots": [
+      {
+        "src": "/work/clinicpulse/dashboard.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "dashboard"
+      },
+      {
+        "src": "/work/clinicpulse/patients.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "patients"
+      },
+      {
+        "src": "/work/clinicpulse/patient-detail.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "patient-detail"
+      },
+      {
+        "src": "/work/clinicpulse/appointments-schedule.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "appointments-schedule"
+      },
+      {
+        "src": "/work/clinicpulse/treatments.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "treatments"
+      },
+      {
+        "src": "/work/clinicpulse/finances-payments.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "finances-payments"
+      },
+      {
+        "src": "/work/clinicpulse/reports.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "reports"
+      },
+      {
+        "src": "/work/clinicpulse/permissions.webp",
+        "w": 1600,
+        "h": 1100,
+        "file": "permissions"
+      }
+    ]
+  },
+  "quiz": {
+    "cover": {
+      "src": "/work/quiz/cover.webp",
+      "w": 1800,
+      "h": 1012
+    },
+    "shots": [
+      {
+        "src": "/work/quiz/05-quiz.webp",
+        "w": 1600,
+        "h": 1000,
+        "file": "05_quiz"
+      },
+      {
+        "src": "/work/quiz/03-dashboard.webp",
+        "w": 1600,
+        "h": 1000,
+        "file": "03_dashboard"
+      },
+      {
+        "src": "/work/quiz/06-result.webp",
+        "w": 1600,
+        "h": 1000,
+        "file": "06_result"
+      },
+      {
+        "src": "/work/quiz/04-history.webp",
+        "w": 1600,
+        "h": 1000,
+        "file": "04_history"
+      },
+      {
+        "src": "/work/quiz/07-admin-catalog.webp",
+        "w": 1600,
+        "h": 1000,
+        "file": "07_admin_catalog"
+      },
+      {
+        "src": "/work/quiz/09-admin-import.webp",
+        "w": 1600,
+        "h": 1000,
+        "file": "09_admin_import"
+      },
+      {
+        "src": "/work/quiz/10-admin-simulate.webp",
+        "w": 1600,
+        "h": 1000,
+        "file": "10_admin_simulate"
+      }
+    ]
+  },
+  "findar": {
+    "cover": {
+      "src": "/work/findar/cover.webp",
+      "w": 1440,
+      "h": 900
+    },
+    "shots": [
+      {
+        "src": "/work/findar/findar-hero-mockup.webp",
+        "w": 400,
+        "h": 800,
+        "file": "findar-hero-mockup"
+      },
+      {
+        "src": "/work/findar/findar-advanced-search.webp",
+        "w": 400,
+        "h": 851,
+        "file": "findar-advanced-search"
+      }
+    ]
+  },
+  "sentinel": {
+    "cover": {
+      "src": "/work/sentinel/cover.webp",
+      "w": 1280,
+      "h": 596
+    },
+    "shots": []
+  }
+}

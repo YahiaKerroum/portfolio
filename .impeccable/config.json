@@ -1,0 +1,15 @@
+{
+  "buildPath": "comp",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "createdAt": "2026-10-07T16:27:15.002Z",
+        "reason": "Claude: domain-appropriate motion. The user pinned 'Soft letters' (squishy tubes that wobble and spring back); the finish reviewer judged --ease-spring disciplined, used on micro-interactions only"
+      }
+    ]
+  }
+}

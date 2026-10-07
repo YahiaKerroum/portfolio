@@ -1,27 +1,20 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Education from "@/components/Education";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import { ScrollProgress } from "@/components/MotionPrimitives";
+import Header from "@/components/Header";
+import Hero from "@/components/hero/Hero";
+import PageMotion from "@/components/PageMotion";
+import { About, Contact, Footer, Work } from "@/components/Sections";
 
 export default function Home() {
   return (
     <>
-      <ScrollProgress />
-      <Navbar />
-      <main>
+      <Header />
+      <main id="top">
         <Hero />
+        <Work />
         <About />
-        <Projects />
-        <Skills />
-        <Education />
         <Contact />
       </main>
       <Footer />
+      <PageMotion />
     </>
   );
 }
