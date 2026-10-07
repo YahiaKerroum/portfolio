@@ -226,6 +226,8 @@ The hero's 3D name. Five Verlet-sprung tube strokes and four dots in MeshPhysica
 ### Clay Avatar (signature)
 A chibi clay bust of Yahia built from primitives in the same glossy world (clay roughness 0.46, half clearcoat). He watches the cursor, breathes, blinks, and looks surprised when the name is grabbed. Stubble is the light, grainy version Yahia chose: a soft per-vertex grainy edge along the jaw, lighter over the lip. A second, smaller bust reprises in Contact, popping up when scrolled into view.
 
+The site icon is his head from this same render, in a chalk-paper circle (Yahia's pick over a glazed ي): `favicon.ico` at 16-64 px and a 180 px `apple-icon.png` on full-bleed paper. Rebuild both from the live avatar whenever it changes: `scripts/preview/capture_icon.py` (through `preview.ps1 -Extra`), then `scripts/build_icons.py`.
+
 ### Motion Grammar
 - **Squash and settle:** big headings arrive letter by letter from a squash (scaleY 0.62, 1.15s elastic.out(1, 0.55), 0.04s stagger); hero copy lands with a softer squash after the name has piped in.
 - **Calm reveals:** rows deal in (y 40, 0.9s expo.out); paragraphs and facts rise (expo.out); screenshots unclip from a rounded inset and drift slowly with scroll.
