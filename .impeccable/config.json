@@ -1,5 +1,5 @@
 {
-  "buildPath": "comp",
+  "buildPath": "code",
   "detector": {
     "ignoreRules": [],
     "ignoreFiles": [],
@@ -9,6 +9,12 @@
         "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
         "createdAt": "2026-10-07T16:27:15.002Z",
         "reason": "Claude: domain-appropriate motion. The user pinned 'Soft letters' (squishy tubes that wobble and spring back); the finish reviewer judged --ease-spring disciplined, used on micro-interactions only"
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "var(--ease-spring)",
+        "createdAt": "2026-10-07T20:12:38.501Z",
+        "reason": "Claude: same sanctioned spring as the existing cubic-bezier(0.34, 1.56, 0.64, 1) exception, referenced via its token; used for the name-loader dots popping in (Soft letters motion, micro-interaction only)"
       }
     ]
   }

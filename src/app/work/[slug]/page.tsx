@@ -35,6 +35,9 @@ export default async function ProjectPage({ params }: Props) {
   const data = getProject(slug);
   if (!data) notFound();
   const { project: p, next } = data;
+  // the arrow is glued to the last word so a wrapped name never strands it
+  const nextWords = next.name.split(" ");
+  const nextLast = nextWords.pop();
 
   return (
     <>
@@ -129,7 +132,10 @@ export default async function ProjectPage({ params }: Props) {
           <nav className="next-project" aria-label="Next project" style={{ "--accent": next.accent } as CSSProperties}>
             <Link href={`/work/${next.slug}`} className="next-project__link" transitionTypes={["to-project"]}>
               <span className="next-project__name">
-                <span className="next-project__next">Next:</span> {next.name} <Icon name="right" />
+                <span className="next-project__next">Next:</span> {nextWords.length > 0 && `${nextWords.join(" ")} `}
+                <span className="next-project__end">
+                  {nextLast} <Icon name="right" />
+                </span>
               </span>
               <span className="next-project__what">{next.descriptor}</span>
               <ViewTransition name={`cover-${next.slug}`} share="cover-morph">

@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import * as THREE from "three";
+import { releaseRenderer, whenIdle } from "../glStart";
+
+const clamp = THREE.MathUtils.clamp;
 
 const vertex = /* glsl */ `
   uniform vec2 uVel;
@@ -51,9 +54,17 @@ const fragment = /* glsl */ `
   }
 `;
 
+type Cover = { src: string; w: number; h: number };
+type Props = {
+  covers: Cover[];
+  active: number | null;
+  /** the work list, whose rows the preview keeps clear of */
+  listRef: RefObject<HTMLOListElement | null>;
+};
+
 /** A cover that follows the cursor over the work list. Pointer-fine devices only. */
-export default function CoverPreview({ covers, active }: { covers: { src: string; w: number; h: number }[]; active: number | null }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+export default function CoverPreview({ covers, active, listRef }: Props) {
+  const hostRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef<number | null>(active);
   const wakeRef = useRef<() => void>(() => {});
 
@@ -63,136 +74,178 @@ export default function CoverPreview({ covers, active }: { covers: { src: string
   }, [active]);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-    let renderer: THREE.WebGLRenderer;
-    try {
-      renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    } catch {
-      return;
-    }
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0, 0);
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(0, 1, 0, -1, -1000, 1000);
-    const loader = new THREE.TextureLoader();
-    const textures = covers.map((c) => {
-      const t = loader.load(c.src);
-      t.colorSpace = THREE.SRGBColorSpace;
-      t.anisotropy = 4;
-      return t;
-    });
-    const uniforms = {
-      uA: { value: textures[0] },
-      uB: { value: textures[0] },
-      uMix: { value: 1 },
-      uShow: { value: 0 },
-      uVel: { value: new THREE.Vector2() },
-      uSize: { value: new THREE.Vector2(1, 1) },
-      uTime: { value: 0 },
-    };
-    const mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1, 1, 32, 32),
-      new THREE.ShaderMaterial({ uniforms, vertexShader: vertex, fragmentShader: fragment, transparent: true }),
+    const host = hostRef.current;
+    const list = listRef.current;
+    if (!host || !list || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    // nothing is set up until the list comes close, and then only in a quiet moment
+    let teardown = () => {};
+    let cancelIdle = () => {};
+    const near = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        near.disconnect();
+        cancelIdle = whenIdle(() => {
+          teardown = mount(host, covers, listRef, activeRef, wakeRef);
+        });
+      },
+      { rootMargin: "50% 0px" },
     );
-    scene.add(mesh);
-
-    let W = 1;
-    let H = 1;
-    const resize = () => {
-      W = window.innerWidth;
-      H = window.innerHeight;
-      renderer.setSize(W, H, false);
-      camera.right = W;
-      camera.bottom = -H;
-      camera.updateProjectionMatrix();
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const ptr = { x: W / 2, y: H / 2 };
-    const pos = { x: W / 2, y: H / 2 };
-    const vel = new THREE.Vector2();
-    const onMove = (e: PointerEvent) => {
-      ptr.x = e.clientX;
-      ptr.y = e.clientY;
-    };
-    window.addEventListener("pointermove", onMove, { passive: true });
-
-    let shown = -1;
-    let show = 0;
-    let running = false;
-    const timer = new THREE.Timer();
-    const frame = () => {
-      timer.update();
-      const real = Math.min(timer.getDelta(), 0.25); // fades keep wall-clock time on slow devices
-      const dt = Math.min(real, 0.05);
-      uniforms.uTime.value += dt;
-      const a = activeRef.current;
-      if (a !== null && a !== shown) {
-        if (show < 0.05) {
-          uniforms.uA.value = uniforms.uB.value = textures[a];
-          uniforms.uMix.value = 1;
-        } else {
-          uniforms.uA.value = uniforms.uB.value;
-          uniforms.uB.value = textures[a];
-          uniforms.uMix.value = 0;
-        }
-        shown = a;
-      }
-      uniforms.uMix.value = Math.min(1, uniforms.uMix.value + real * (reduced ? 99 : 5));
-      show += ((a !== null ? 1 : 0) - show) * Math.min(1, real * (reduced ? 99 : 9));
-      uniforms.uShow.value = show;
-
-      const c = covers[shown < 0 ? 0 : shown];
-      const w = Math.min(W * 0.32, 500);
-      const h = w * (c.h / c.w);
-      uniforms.uSize.value.set(w, h);
-      const side = ptr.x + w + 48 > W ? -1 : 1;
-      const tx = ptr.x + side * (w / 2 + 36);
-      const ty = Math.min(Math.max(ptr.y - h * 0.15, h / 2 + 16), H - h / 2 - 16);
-      const k = reduced ? 1 : Math.min(1, dt * 10);
-      const nx = pos.x + (tx - pos.x) * k;
-      const ny = pos.y + (ty - pos.y) * k;
-      vel.set(((nx - pos.x) / Math.max(dt, 1e-3)) / 900, ((ny - pos.y) / Math.max(dt, 1e-3)) / 900);
-      vel.clampScalar(-1.4, 1.4);
-      uniforms.uVel.value.lerp(vel, 0.25);
-      pos.x = nx;
-      pos.y = ny;
-      mesh.position.set(pos.x, -pos.y, 0);
-      mesh.scale.set(w, h, 1);
-      renderer.render(scene, camera);
-
-      if (a === null && show < 0.002) {
-        renderer.setAnimationLoop(null);
-        running = false;
-        renderer.clear();
-      }
-    };
-    wakeRef.current = () => {
-      if (running || activeRef.current === null) return;
-      if (show < 0.002) {
-        pos.x = ptr.x;
-        pos.y = ptr.y;
-      }
-      running = true;
-      timer.update();
-      renderer.setAnimationLoop(frame);
-    };
-    wakeRef.current();
-
+    near.observe(list);
     return () => {
+      near.disconnect();
+      cancelIdle();
+      teardown();
+    };
+  }, [covers, listRef]);
+
+  return <div ref={hostRef} className="cover-preview" aria-hidden="true" />;
+}
+
+function mount(
+  host: HTMLDivElement,
+  covers: Cover[],
+  listRef: RefObject<HTMLOListElement | null>,
+  activeRef: RefObject<number | null>,
+  wakeRef: RefObject<() => void>,
+): () => void {
+  let renderer: THREE.WebGLRenderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  } catch {
+    return () => {};
+  }
+  host.appendChild(renderer.domElement);
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0, 0);
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(0, 1, 0, -1, -1000, 1000);
+  const loader = new THREE.TextureLoader();
+  const textures = covers.map((c) => {
+    const t = loader.load(c.src);
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.anisotropy = 4;
+    return t;
+  });
+  const uniforms = {
+    uA: { value: textures[0] },
+    uB: { value: textures[0] },
+    uMix: { value: 1 },
+    uShow: { value: 0 },
+    uVel: { value: new THREE.Vector2() },
+    uSize: { value: new THREE.Vector2(1, 1) },
+    uTime: { value: 0 },
+  };
+  const mesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(1, 1, 32, 32),
+    new THREE.ShaderMaterial({ uniforms, vertexShader: vertex, fragmentShader: fragment, transparent: true }),
+  );
+  scene.add(mesh);
+
+  let W = 1;
+  let H = 1;
+  const resize = () => {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    renderer.setSize(W, H, false);
+    camera.right = W;
+    camera.bottom = -H;
+    camera.updateProjectionMatrix();
+  };
+  resize();
+  window.addEventListener("resize", resize);
+
+  const ptr = { x: W / 2, y: H / 2 };
+  const pos = { x: W / 2, y: H / 2 };
+  const goal = { x: 0, y: 0, w: 1, h: 1 };
+  const vel = new THREE.Vector2();
+  // follow the cursor sideways, but hang just above the hovered row (below it
+  // near the top of the screen) so the row's own name and descriptor stay clear
+  const aim = (i: number) => {
+    const c = covers[i];
+    goal.w = Math.min(W * 0.32, 500);
+    goal.h = goal.w * (c.h / c.w);
+    const row = listRef.current?.children[i]?.getBoundingClientRect();
+    const gap = 14;
+    let y = ptr.y;
+    if (row) y = row.top - gap - goal.h >= 16 ? row.top - gap - goal.h / 2 : row.bottom + gap + goal.h / 2;
+    goal.x = clamp(ptr.x, goal.w / 2 + 16, W - goal.w / 2 - 16);
+    goal.y = clamp(y, goal.h / 2 + 16, H - goal.h / 2 - 16);
+  };
+  const onMove = (e: PointerEvent) => {
+    ptr.x = e.clientX;
+    ptr.y = e.clientY;
+  };
+  window.addEventListener("pointermove", onMove, { passive: true });
+
+  let shown = -1;
+  let show = 0;
+  let running = false;
+  const timer = new THREE.Timer();
+  const frame = () => {
+    timer.update();
+    const real = Math.min(timer.getDelta(), 0.25); // fades keep wall-clock time on slow devices
+    const dt = Math.min(real, 0.05);
+    uniforms.uTime.value += dt;
+    const a = activeRef.current;
+    if (a !== null && a !== shown) {
+      if (show < 0.05) {
+        uniforms.uA.value = uniforms.uB.value = textures[a];
+        uniforms.uMix.value = 1;
+      } else {
+        uniforms.uA.value = uniforms.uB.value;
+        uniforms.uB.value = textures[a];
+        uniforms.uMix.value = 0;
+      }
+      shown = a;
+    }
+    uniforms.uMix.value = Math.min(1, uniforms.uMix.value + real * (reduced ? 99 : 5));
+    show += ((a !== null ? 1 : 0) - show) * Math.min(1, real * (reduced ? 99 : 9));
+    uniforms.uShow.value = show;
+
+    aim(shown < 0 ? 0 : shown);
+    uniforms.uSize.value.set(goal.w, goal.h);
+    const k = reduced ? 1 : Math.min(1, dt * 10);
+    const nx = pos.x + (goal.x - pos.x) * k;
+    const ny = pos.y + (goal.y - pos.y) * k;
+    vel.set(((nx - pos.x) / Math.max(dt, 1e-3)) / 900, ((ny - pos.y) / Math.max(dt, 1e-3)) / 900);
+    vel.clampScalar(-1.4, 1.4);
+    uniforms.uVel.value.lerp(vel, 0.25);
+    pos.x = nx;
+    pos.y = ny;
+    mesh.position.set(pos.x, -pos.y, 0);
+    mesh.scale.set(goal.w, goal.h, 1);
+    renderer.render(scene, camera);
+
+    if (a === null && show < 0.002) {
       renderer.setAnimationLoop(null);
-      wakeRef.current = () => {};
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", onMove);
+      running = false;
+      renderer.clear();
+    }
+  };
+  wakeRef.current = () => {
+    if (running || activeRef.current === null) return;
+    if (show < 0.002) {
+      // appear in place rather than sliding in across the row text
+      aim(activeRef.current);
+      pos.x = goal.x;
+      pos.y = goal.y;
+    }
+    running = true;
+    timer.update();
+    renderer.setAnimationLoop(frame);
+  };
+  wakeRef.current();
+
+  return () => {
+    wakeRef.current = () => {};
+    window.removeEventListener("resize", resize);
+    window.removeEventListener("pointermove", onMove);
+    renderer.domElement.remove();
+    releaseRenderer(renderer, () => {
       textures.forEach((t) => t.dispose());
       mesh.geometry.dispose();
       (mesh.material as THREE.Material).dispose();
-      renderer.dispose();
-    };
-  }, [covers]);
-
-  return <canvas ref={canvasRef} className="cover-preview" aria-hidden="true" />;
+    });
+  };
 }

@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function PageMotion() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let offName = () => {};
     const ctx = gsap.context(() => {
       // the hero copy lands with a little squash, after the name has been piped in
       if (document.querySelector(".hero")) {
@@ -24,7 +25,20 @@ export default function PageMotion() {
           stagger: 0.07,
           delay: 0.9,
         });
-        gsap.from(".hero__hint", { y: 10, rotate: -4, duration: 1, ease: "back.out(2)", delay: 2.1 });
+        // "give it a poke" only once the name is there to be poked
+        gsap.set(".hero__hint", { autoAlpha: 0 });
+        const hint = () =>
+          gsap.fromTo(
+            ".hero__hint",
+            { autoAlpha: 0, y: 10, rotate: -4 },
+            { autoAlpha: 1, y: 0, rotate: 0, duration: 1, ease: "back.out(2)", delay: 0.5 },
+          );
+        const onName = (e: Event) => {
+          if ((e as CustomEvent<string>).detail === "landed") ctx.add(hint);
+        };
+        if ((window as Window & { __ykLanded?: boolean }).__ykLanded) hint();
+        window.addEventListener("yk:name", onName);
+        offName = () => window.removeEventListener("yk:name", onName);
       }
 
       // big headings squash and settle, letter by letter, like the name does
@@ -85,7 +99,10 @@ export default function PageMotion() {
           );
       });
     });
-    return () => ctx.revert();
+    return () => {
+      offName();
+      ctx.revert();
+    };
   }, []);
 
   return null;

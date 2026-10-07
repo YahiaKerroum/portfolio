@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ViewTransition, useMemo, useState, type CSSProperties } from "react";
+import { ViewTransition, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { Project } from "@/content/projects";
 import Icon from "../Icon";
 
@@ -14,10 +14,12 @@ type Row = Pick<Project, "slug" | "name" | "descriptor" | "role" | "year" | "acc
 export default function WorkList({ projects }: { projects: Row[] }) {
   const [active, setActive] = useState<number | null>(null);
   const covers = useMemo(() => projects.map((p) => p.cover), [projects]);
+  const listRef = useRef<HTMLOListElement>(null);
 
   return (
     <>
       <ol
+        ref={listRef}
         className="work-list"
         data-active={active !== null || undefined}
         style={{ "--bloom": active !== null ? projects[active].accent : "transparent" } as CSSProperties}
@@ -60,7 +62,7 @@ export default function WorkList({ projects }: { projects: Row[] }) {
           </li>
         ))}
       </ol>
-      <CoverPreview covers={covers} active={active} />
+      <CoverPreview covers={covers} active={active} listRef={listRef} />
     </>
   );
 }

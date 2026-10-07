@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T21:30:50+00:00",
+  "title": "Design System: Yahia Kerroum, Soft letters",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Deep Ink",
+        "canonical": "oklch(22.6% 0.025 277.4)",
+        "tonalRamp": [
+          "#090a16",
+          "#222432",
+          "#3e4150",
+          "#5d6070",
+          "#7e8192",
+          "#a1a4b5",
+          "#c5c8da",
+          "#eaedff"
+        ]
+      },
+      "coral": {
+        "role": "secondary",
+        "displayName": "Glaze Coral",
+        "canonical": "oklch(70.7% 0.187 34.1)",
+        "tonalRamp": [
+          "#1d0200",
+          "#490a00",
+          "#7a1800",
+          "#ae2802",
+          "#db4a29",
+          "#fe7657",
+          "#ffb4a2",
+          "#fee9e4"
+        ]
+      },
+      "saffron": {
+        "role": "secondary",
+        "displayName": "Glaze Saffron",
+        "canonical": "oklch(83.1% 0.157 77.8)",
+        "tonalRamp": [
+          "#120900",
+          "#332100",
+          "#593c00",
+          "#815800",
+          "#ab7707",
+          "#d8970a",
+          "#ffbb44",
+          "#ffeccf"
+        ]
+      },
+      "blue": {
+        "role": "secondary",
+        "displayName": "Glaze Mediterranean Blue",
+        "canonical": "oklch(58.5% 0.226 266.2)",
+        "tonalRamp": [
+          "#010035",
+          "#06007a",
+          "#1020b7",
+          "#264cde",
+          "#4775ff",
+          "#7ba1ff",
+          "#b1c9fe",
+          "#e8effe"
+        ]
+      },
+      "mint": {
+        "role": "secondary",
+        "displayName": "Glaze Mint",
+        "canonical": "oklch(76.3% 0.147 166.4)",
+        "tonalRamp": [
+          "#000f08",
+          "#022d1f",
+          "#034f39",
+          "#037354",
+          "#029971",
+          "#0fc190",
+          "#51e7b4",
+          "#c0ffe4"
+        ]
+      },
+      "lilac": {
+        "role": "secondary",
+        "displayName": "Glaze Lilac",
+        "canonical": "oklch(71.0% 0.164 290.8)",
+        "tonalRamp": [
+          "#0e002b",
+          "#2b0065",
+          "#472590",
+          "#6449b5",
+          "#856cdc",
+          "#a691ff",
+          "#c9c0ff",
+          "#eeecfe"
+        ]
+      },
+      "pink": {
+        "role": "secondary",
+        "displayName": "Glaze Pink",
+        "canonical": "oklch(77.6% 0.145 358.3)",
+        "tonalRamp": [
+          "#1d000b",
+          "#490024",
+          "#780b41",
+          "#9e3560",
+          "#c55881",
+          "#ec7ba4",
+          "#ffaec8",
+          "#fee8ee"
+        ],
+        "note": "Defined in src/components/hero/name.ts only (GLAZE.pink); no CSS custom property."
+      },
+      "accent-default": {
+        "role": "tertiary",
+        "displayName": "Project Accent (fallback)",
+        "canonical": "oklch(46.5% 0.204 266.9)",
+        "tonalRamp": [
+          "#020035",
+          "#080079",
+          "#1529ac",
+          "#2e50d3",
+          "#4b75fa",
+          "#7da1fe",
+          "#b2c8fe",
+          "#e8eefe"
+        ],
+        "note": "CSS fallback for --accent; each project overrides it with its own accent from src/content/projects.ts."
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Chalk Paper",
+        "canonical": "oklch(94.9% 0.006 264.5)",
+        "tonalRamp": [
+          "#0a0b0e",
+          "#242528",
+          "#404245",
+          "#5f6165",
+          "#808286",
+          "#a3a5a9",
+          "#c7c9cd",
+          "#eceef2"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Shaded Paper",
+        "canonical": "oklch(91.8% 0.009 264.5)",
+        "tonalRamp": [
+          "#090b0f",
+          "#232529",
+          "#404247",
+          "#5f6166",
+          "#808288",
+          "#a2a5ab",
+          "#c6c9cf",
+          "#ebeef5"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Second Ink",
+        "canonical": "oklch(41.3% 0.039 273.2)",
+        "tonalRamp": [
+          "#06091b",
+          "#1f2438",
+          "#3b4157",
+          "#5a6078",
+          "#7a819b",
+          "#9da4be",
+          "#c0c8e4",
+          "#e9eeff"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Third Ink",
+        "canonical": "oklch(48.6% 0.041 274.3)",
+        "tonalRamp": [
+          "#07091c",
+          "#1f2339",
+          "#3b4158",
+          "#5a6079",
+          "#7a819b",
+          "#9da4bf",
+          "#c1c8e5",
+          "#e9eefe"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "rgb(25 27 40 / 0.14)",
+        "tonalRamp": [
+          "#090a16",
+          "#222432",
+          "#3e4150",
+          "#5d6070",
+          "#7e8192",
+          "#a1a4b5",
+          "#c5c8da",
+          "#eaedff"
+        ],
+        "note": "Ink at 14% alpha; ramp is the ink ramp."
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Section titles (uppercase), contact title and project title; letters squash and settle on entry."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The hero greeting only."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project names in the work list; weight rises to 700 on hover."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "About opener and project tagline."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text at a 62-64ch measure."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Navigation, arrow links, the copy button."
+      },
+      "arabic": {
+        "displayName": "Arabic",
+        "purpose": "Any lang=ar text; the face the name's tubes were traced from."
+      }
+    },
+    "shadows": [
+      {
+        "name": "thumb-contact",
+        "value": "0 10px 24px -14px rgb(25 27 40 / 0.55)",
+        "purpose": "Work-row thumbnails."
+      },
+      {
+        "name": "next-thumb-contact",
+        "value": "0 16px 34px -18px rgb(25 27 40 / 0.5)",
+        "purpose": "The 'Next:' thumbnail."
+      },
+      {
+        "name": "cover-lift",
+        "value": "0 34px 70px -34px rgb(25 27 40 / 0.5)",
+        "purpose": "Project page main cover."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Anything that travels: underlines, bloom, view transitions."
+      },
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "purpose": "Sanctioned (config.json) for micro-interactions only: icons, mark, row wash, thumbnails, copy button, contact letters, loader dots."
+      },
+      {
+        "name": "drop",
+        "value": "GSAP elastic.out(1, 0.55), 1.15s, scaleY 0.62 to 1, yPercent 18, stagger 0.04s",
+        "purpose": "Big headings squash and settle letter by letter."
+      },
+      {
+        "name": "rise",
+        "value": "GSAP expo.out, 0.9-1.1s, y 20-40px",
+        "purpose": "Work rows, paragraphs, facts."
+      },
+      {
+        "name": "name-write",
+        "value": "0.55s cubic-bezier(0.6, 0.05, 0.3, 1), strokes 0.32s apart",
+        "purpose": "Loader: the name writes itself as an ink line."
+      },
+      {
+        "name": "tube-entrance",
+        "value": "grow out-cubic 0.7s, radius out-elastic 1.1s, strokes 0.17s apart; dots out-back 0.45s from 1.05s",
+        "purpose": "The 3D tubes pipe in in writing order from the first drawn frame."
+      },
+      {
+        "name": "cover-morph",
+        "value": "0.75s var(--ease-out), 2px blur at 40%",
+        "purpose": "The cover travels between the list and the project page."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "transitions and animations 0.01ms; view transitions, GSAP and Lenis off; 3D appears in place without idle wobble",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide",
+        "value": "1100px"
+      },
+      {
+        "name": "tablet",
+        "value": "860px"
+      },
+      {
+        "name": "phone",
+        "value": "560px"
+      },
+      {
+        "name": "hover-capable",
+        "value": "(hover: hover) and (pointer: fine)"
+      }
+    ],
+    "webglRules": [
+      "Wait for any running view transition before GL setup (afterPageTransition).",
+      "Compile scene and PMREM filter shaders in parallel (KHR_parallel_shader_compile) before the first draw.",
+      "Staged start: name first; hero avatar after the name's first frame or a 2.5s fallback; contact avatar and jelly preview only when scrolled near, in idle time.",
+      "Render loops stop offscreen, in hidden tabs, and when nothing is hovered.",
+      "On unmount stop the loop at once; dispose and forceContextLoss only after the page transition.",
+      "Name pixel ratio starts at min(dpr, 1.75) and steps down 0.25 (floor 1) when the median frame exceeds 25ms over 90 frames; avatar and preview cap at 2."
+    ]
+  },
+  "components": [
+    {
+      "name": "Arrow Link",
+      "kind": "custom",
+      "refersTo": "arrow-link",
+      "description": "Text action with a growing 2px underline and a nudging stroke arrow.",
+      "html": "<a class=\"ds-arrow-link\" href=\"#\">See my work <svg class=\"ds-icon\" viewBox=\"0 0 20 20\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M4 10h12M11 5l5 5-5 5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-arrow-link { display: inline-flex; align-items: center; gap: 0.45em; color: #191b28; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-weight: 650; text-decoration: none; padding-bottom: 3px; background: linear-gradient(currentColor, currentColor) 0 100% / 0% 2px no-repeat; transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-arrow-link .ds-icon { width: 1.05em; height: 1.05em; transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1); } .ds-arrow-link:hover { background-size: 100% 2px; } .ds-arrow-link:hover .ds-icon { transform: translateX(4px); } .ds-arrow-link:focus-visible { outline: 2px solid #3d6bff; outline-offset: 4px; border-radius: 4px; }"
+    },
+    {
+      "name": "Copy Email Button",
+      "kind": "button",
+      "refersTo": "button-copy",
+      "description": "The only boxed control: ink stroke, springs on hover, mint once copied.",
+      "html": "<button type=\"button\" class=\"ds-btn-copy\"><svg viewBox=\"0 0 20 20\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M7 7V4.5A1.5 1.5 0 0 1 8.5 3h7A1.5 1.5 0 0 1 17 4.5v7a1.5 1.5 0 0 1-1.5 1.5H13M4.5 7h7A1.5 1.5 0 0 1 13 8.5v7a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 15.5v-7A1.5 1.5 0 0 1 4.5 7z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg><span>Copy</span></button>",
+      "css": ".ds-btn-copy { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.55em 0.95em; border: 1.5px solid #191b28; border-radius: 12px; background: transparent; color: #191b28; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-weight: 650; font-size: 0.92rem; cursor: pointer; transition: translate 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), rotate 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s, border-color 0.3s; } .ds-btn-copy svg { width: 1.05em; height: 1.05em; } .ds-btn-copy:hover { translate: 0 -2px; rotate: -2deg; } .ds-btn-copy:active, .ds-btn-copy[data-copied] { background: #2fcf9d; border-color: #2fcf9d; } .ds-btn-copy:focus-visible { outline: 2px solid #3d6bff; outline-offset: 4px; border-radius: 4px; }"
+    },
+    {
+      "name": "Site Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Mark and name left, four plain links right with growing underlines.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav__mark\" href=\"#\">Yahia Kerroum</a><nav><a href=\"#\">Work</a><a href=\"#\">About</a><a href=\"#\">Contact</a><a href=\"#\">CV</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 22px 32px; background: #eceef2; color: #191b28; } .ds-nav__mark { font-family: Unbounded, system-ui, sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: -0.02em; text-decoration: none; color: inherit; } .ds-nav nav { display: flex; gap: 32px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-weight: 650; font-size: 0.97rem; } .ds-nav nav a { color: inherit; text-decoration: none; padding-bottom: 3px; background: linear-gradient(currentColor, currentColor) 0 100% / 0% 2px no-repeat; transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav nav a:hover { background-size: 100% 2px; } .ds-nav a:focus-visible { outline: 2px solid #3d6bff; outline-offset: 4px; border-radius: 4px; }"
+    },
+    {
+      "name": "Work Row",
+      "kind": "custom",
+      "refersTo": "work-row",
+      "description": "Ruled list row: name, descriptor, role and year, full-colour cover; the project's accent arrives only on hover or focus.",
+      "html": "<a class=\"ds-row\" href=\"#\" style=\"--accent:#1C63E0\"><span class=\"ds-row__name\">Qima</span><span class=\"ds-row__what\">What a used laptop is really worth in Algeria<small>Team lead · 2026</small></span><span class=\"ds-row__thumb\"></span></a>",
+      "css": ".ds-row { position: relative; display: grid; grid-template-columns: 1.2fr 1fr auto; align-items: center; gap: 32px; padding: 24px 0; border-bottom: 1.5px solid rgb(25 27 40 / 0.14); color: #191b28; text-decoration: none; isolation: isolate; } .ds-row::before { content: ''; position: absolute; inset: 4px -16px; z-index: -1; border-radius: 16px; background: color-mix(in oklab, var(--accent) 10%, #eceef2); opacity: 0; scale: 1 0.7; transition: opacity 0.35s, scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); } .ds-row__name { font-family: Unbounded, system-ui, sans-serif; font-weight: 500; font-size: 2.4rem; line-height: 1; letter-spacing: -0.04em; transition: translate 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), font-weight 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s; } .ds-row__what { display: grid; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-weight: 600; font-size: 1.02rem; line-height: 1.35; } .ds-row__what small { font-weight: 400; font-size: 0.92rem; color: #585e77; } .ds-row__thumb { width: 160px; aspect-ratio: 16 / 9; border-radius: 8px; background: linear-gradient(135deg, #1C63E0, #e8effe); box-shadow: 0 10px 24px -14px rgb(25 27 40 / 0.55); transition: rotate 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); } .ds-row:hover::before, .ds-row:focus-visible::before { opacity: 1; scale: 1 1; } .ds-row:hover .ds-row__name, .ds-row:focus-visible .ds-row__name { translate: 14px 0; font-weight: 700; color: var(--accent); } .ds-row:hover .ds-row__thumb { rotate: -3deg; scale: 1.06; } .ds-row:focus-visible { outline: 2px solid #3d6bff; outline-offset: 4px; border-radius: 4px; }"
+    },
+    {
+      "name": "Section Head",
+      "kind": "custom",
+      "refersTo": "section-head",
+      "description": "Uppercase Unbounded title with a side note, closed by a 2px ink rule.",
+      "html": "<div class=\"ds-head\"><h2>Work</h2><p>Nine products, from solo builds to national platforms. Each page says exactly what my part was.</p></div>",
+      "css": ".ds-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem 2rem; padding-bottom: 24px; border-bottom: 2px solid #191b28; color: #191b28; } .ds-head h2 { margin: 0; font-family: Unbounded, system-ui, sans-serif; font-weight: 700; font-size: 4.5rem; line-height: 0.9; letter-spacing: -0.04em; text-transform: uppercase; } .ds-head p { margin: 0; max-width: 25rem; color: #444a61; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 0.98rem; }"
+    },
+    {
+      "name": "Facts List",
+      "kind": "custom",
+      "refersTo": "facts",
+      "description": "Definition list as hairline-ruled rows.",
+      "html": "<dl class=\"ds-facts\"><div><dt>Role</dt><dd>Team lead</dd></div><div><dt>Based in</dt><dd>Algiers, Algeria</dd></div></dl>",
+      "css": ".ds-facts { margin: 0; font-family: 'Hanken Grotesk', system-ui, sans-serif; color: #191b28; } .ds-facts > div { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem; padding: 0.95rem 0; border-top: 1.5px solid rgb(25 27 40 / 0.14); } .ds-facts > div:last-child { border-bottom: 1.5px solid rgb(25 27 40 / 0.14); } .ds-facts dt { font-weight: 700; font-size: 0.9rem; } .ds-facts dd { margin: 0; color: #444a61; font-size: 0.97rem; }"
+    },
+    {
+      "name": "Name Loader Sketch",
+      "kind": "custom",
+      "refersTo": "soft-name",
+      "description": "While the 3D name gets ready, it writes itself as a thin ink line in stroke order and its glaze dots hop in place; no curtain.",
+      "html": "<svg class=\"ds-sketch\" viewBox=\"0 0 120 50\"><path pathLength=\"1\" d=\"M110 10 C112 30 100 36 80 34 L40 34\"/><path pathLength=\"1\" style=\"--i:1\" d=\"M40 34 C20 34 10 28 12 14\"/><circle cx=\"60\" cy=\"44\" r=\"3\" fill=\"#ffb938\"/><circle cx=\"70\" cy=\"44\" r=\"3\" fill=\"#ff6b4a\"/></svg>",
+      "css": ".ds-sketch { width: 240px; overflow: visible; } .ds-sketch path { fill: none; stroke: #444a61; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: ds-write 0.55s cubic-bezier(0.6, 0.05, 0.3, 1) calc(0.1s + var(--i, 0) * 0.32s) forwards; } .ds-sketch circle { transform-box: fill-box; transform-origin: 50% 100%; animation: ds-hop 1.4s ease-in-out infinite; } @keyframes ds-write { to { stroke-dashoffset: 0; } } @keyframes ds-hop { 0%, 80%, 100% { transform: none; } 10% { transform: scale(1.14, 0.84); } 38% { transform: translateY(-70%) scale(0.92, 1.08); } 62% { transform: none; } 70% { transform: scale(1.08, 0.92); } } @media (prefers-reduced-motion: reduce) { .ds-sketch path, .ds-sketch circle { animation: none; stroke-dashoffset: 0; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Soft Letters on Chalk Paper",
+    "overview": "The personality lives in things you can touch, and the work is shown plainly. The page is cool chalk paper under a fixed film of grain, with one deep blue-black ink doing all the reading. Against that quiet ground there are two playful objects: Yahia's Arabic name, يحيى, built from glossy glazed tubes on Verlet springs that you can push, grab and fling, and a stylised clay bust of Yahia that watches the cursor. Everything else is typography, hairline rules and the projects' own covers.\n\nColour is rationed. The six-glaze set belongs to the name and to small moments of play. Each project brings its own accent, and that accent only appears when the project is hovered or open. Covers always show in their own full colour, because each cover is its project's identity. Lists are rule-based and pill-free; nothing is boxed into cards.\n\nThe build is code-led: it was prototyped in code from Yahia's own words and reference sites, with no comps. Its confirmed rejections are the dev-portfolio skeleton (typed role, skills grid, card wall), neon on dark, and any metaphor wrapped around the projects. The stamp-based philatelic direction was built and then dropped because recruiters could not read the projects through it.",
+    "keyCharacteristics": [
+      "Cool chalk paper (paper) with fixed grain at 7% over everything, the 3D included.",
+      "One ink family (ink, ink-2, ink-3); hierarchy comes from weight and size, not hue.",
+      "Unbounded wide display for headings, Hanken Grotesk for reading, Readex Pro for Arabic.",
+      "Glossy glazed tubes and clay, lit by a soft studio environment, casting real soft shadows on the page.",
+      "Project accents appear only on hover or when the project is open; covers are always in full colour.",
+      "Squash-and-settle motion with a spring that stays on micro-interactions."
+    ],
+    "rules": [
+      {
+        "name": "The Colour Belongs to the Work Rule",
+        "body": "A project's accent appears only on hover, focus, or when the project is open. At rest the list is ink on paper and the covers carry the colour in full.",
+        "section": "colors"
+      },
+      {
+        "name": "The Covers Stay Whole Rule",
+        "body": "Covers are never muted, desaturated, tinted or duotoned at rest. Yahia compared full colour, muted and grayscale in the build and chose full colour (2026-10-07).",
+        "section": "colors"
+      },
+      {
+        "name": "The Glaze Is for Play Rule",
+        "body": "The glaze set colours the name and small interactive moments only. It never fills a surface, never becomes a project's colour, and never sets body text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Squeezed Display Rule",
+        "body": "Every Unbounded setting at title size or larger tracks at -0.03em to -0.04em; never open-tracked.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Kicker Rule",
+        "body": "Headings stand alone. There are no eyebrows, numbered section labels or small caps above titles; context comes from the side note or the sentence itself (the \"Next:\" label is part of the sentence, on the same baseline).",
+        "section": "typography"
+      },
+      {
+        "name": "The Images Only Rule",
+        "body": "Only images and the 3D objects carry shadows. Text, rows, buttons and sections stay flat; never a hard offset shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep every surface ink on chalk paper (paper) with the grain overlay at 7% opacity over everything.",
+      "Do show covers in their full own colour at rest; bring a project's accent only on hover, focus, or when it is open.",
+      "Do use rules (2px ink, 1.5px hairline) to divide content, and arrow links with a growing 2px underline for actions.",
+      "Do keep the spring on micro-interactions and use `--ease-out` for anything that travels.",
+      "Do keep the page readable from the first frame: the name writes itself in place while the 3D gets ready.",
+      "Do follow the WebGL rules above (wait for transitions, parallel compile, staged start, deferred release with forced context loss, adaptive pixel ratio) for any new canvas.",
+      "Do write copy plainly and warmly, and credit each role exactly as Yahia states it (solo, main contributor, team lead, co-lead, secondary)."
+    ],
+    "donts": [
+      "Don't mute, gray out or tint covers at rest.",
+      "Don't use the glaze set as a surface fill, a project colour or text colour.",
+      "Don't add a full-screen loading curtain or hide content behind the name's entrance.",
+      "Don't lead with metrics, stat strips, benchmark figures or hype.",
+      "Don't wrap projects in a metaphor (stamps or otherwise); show each one plainly.",
+      "Don't add pills, chips, card walls, a skills grid, or a typed-role hero.",
+      "Don't add kickers or eyebrow labels above headings.",
+      "Don't add shadows to text, rows or buttons, and never a hard offset shadow.",
+      "Don't go dark-and-neon."
+    ]
+  }
+}

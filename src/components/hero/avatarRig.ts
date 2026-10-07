@@ -6,10 +6,21 @@ import * as THREE from "three";
 
 const SKIN = new THREE.Color("#e2ad8e");
 const SKIN_SHADE = new THREE.Color("#c98f74");
-const STUBBLE = new THREE.Color("#8f6b5c");
+const STUBBLE = new THREE.Color("#665c5c");
 const BLUSH = new THREE.Color("#e8907c");
 const HAIR = new THREE.Color("#251c1a");
 const TEE = new THREE.Color("#1d1e26");
+
+/* Stubble, as in his photo: light, with a soft grainy edge (Yahia picked it over
+   two heavier versions). jaw/lip/neck are blend weights toward STUBBLE; front is
+   where the edge sits across the cheeks; soft is the edge's feather above/below. */
+const STUBBLE_MIX = { jaw: 0.26, lip: 0.16, neck: 0.18, front: -0.4, soft: [0.1, 0.14] };
+
+/** a stable per-vertex random, so the seam's duplicate vertices agree */
+const hash = (x: number, y: number, z: number) => {
+  const s = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453;
+  return s - Math.floor(s);
+};
 
 const smooth = (a: number, b: number, x: number) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
@@ -31,6 +42,7 @@ function clay(color: THREE.Color | string, opts: Partial<THREE.MeshPhysicalMater
 }
 
 function headGeometry() {
+  const st = STUBBLE_MIX;
   const g = new THREE.SphereGeometry(1, 96, 72);
   const p = g.attributes.position as THREE.BufferAttribute;
   const colors = new Float32Array(p.count * 3);
@@ -50,9 +62,16 @@ function headGeometry() {
 
     c.copy(SKIN);
     const front = smooth(0.15, 0.6, v.z);
-    const jaw = smooth(-0.22, -0.62, v.y) * front * (1 - smooth(0.6, 0.86, Math.abs(v.x)));
-    const lip = smooth(0.32, 0.0, Math.abs(v.x)) * smooth(-0.2, -0.3, v.y) * (1 - smooth(-0.32, -0.36, v.y)) * front;
-    c.lerp(STUBBLE, 0.32 * jaw + 0.18 * lip);
+    // stubble, as in his photo: chin and jawline, climbing the sides to meet the
+    // sideburns, stopping at the ears; a lighter shadow over the upper lip. A
+    // little per-vertex grain on the edge and the weight keeps it from reading
+    // as a painted band.
+    const g = hash(v.x, v.y, v.z) - 0.5;
+    const around = Math.abs(Math.atan2(v.x, v.z)); // 0 = front, PI/2 = ear
+    const edge = THREE.MathUtils.lerp(st.front, 0.12, smooth(0.85, 1.5, around)) + 0.06 * g;
+    const jaw = smooth(edge + st.soft[0], edge - st.soft[1], v.y) * (1 - smooth(1.5, 1.68, around));
+    const lip = smooth(0.26, 0.1, Math.abs(v.x)) * smooth(-0.21, -0.26, v.y) * (1 - smooth(-0.31, -0.35, v.y)) * front;
+    c.lerp(STUBBLE, (st.jaw * jaw + st.lip * lip) * (1 + 0.5 * g));
     const cheek = Math.exp(-((Math.abs(v.x) - 0.52) ** 2 + (v.y + 0.12) ** 2) / 0.02) * front;
     c.lerp(BLUSH, 0.22 * cheek);
     c.lerp(SKIN_SHADE, 0.25 * smooth(0.2, -0.5, v.z));
@@ -166,11 +185,13 @@ export function buildAvatar(): AvatarRig {
     iris.scale.set(1, 1.04, 0.5);
     iris.position.z = 0.125;
     gaze.add(iris);
+    // the glint rides the iris, so a turned head never leaves it on the skin
     const glint = new THREE.Mesh(glintGeo, glintMat);
-    glint.position.set(0.04, 0.05, 0.168);
+    glint.position.set(0.035, 0.045, 0.165);
+    gaze.add(glint);
     const lid = new THREE.Mesh(lidGeo, skinPlain);
     lid.rotation.x = 0.45;
-    socket.add(sclera, gaze, glint, lid);
+    socket.add(sclera, gaze, lid);
     head.add(socket);
     eyes.push(gaze);
     lids.push(lid);
@@ -226,26 +247,38 @@ export function buildAvatar(): AvatarRig {
   oh.visible = false;
   head.add(oh);
 
-  // neck, shoulders, the black tee
-  const neckGeo = keep(new THREE.CylinderGeometry(0.33, 0.37, 0.72, 48, 6));
+  // neck, shoulders, the black tee. The neck is short and thick like his; its
+  // top hides inside the jaw, so it stays covered when the head turns or tilts.
+  const neckGeo = keep(new THREE.CylinderGeometry(0.42, 0.46, 0.46, 48, 6));
   {
     const pos = neckGeo.attributes.position as THREE.BufferAttribute;
     const col = new Float32Array(pos.count * 3);
     const c = new THREE.Color();
     for (let i = 0; i < pos.count; i++) {
-      c.copy(SKIN).lerp(SKIN_SHADE, 0.75 * smooth(-0.1, 0.36, pos.getY(i)));
+      const y = pos.getY(i);
+      // stubble carries on under the jaw, then the chin's shadow
+      const facing = smooth(-0.3, 0.5, pos.getZ(i) / 0.46);
+      c.copy(SKIN)
+        .lerp(STUBBLE, STUBBLE_MIX.neck * smooth(-0.06, 0.16, y) * facing)
+        .lerp(SKIN_SHADE, 0.6 * smooth(-0.1, 0.23, y));
       col.set([c.r, c.g, c.b], i * 3);
     }
     neckGeo.setAttribute("color", new THREE.BufferAttribute(col, 3));
   }
   const neck = new THREE.Mesh(neckGeo, skinMat);
-  neck.position.y = -1.12;
+  neck.position.y = -1.03;
+  neck.scale.z = 0.78;
   root.add(neck);
-  // the profile starts at the neck's radius, so the ribbed neckline is part of the tee
-  const profile = [
-    [0.0, -1.34], [0.36, -1.34], [0.43, -1.32], [0.47, -1.36], [0.6, -1.42], [0.98, -1.56], [1.22, -1.8], [1.33, -2.2],
-    [1.38, -2.9], [1.4, -3.8],
-  ].map(([x, y]) => new THREE.Vector2(x, y));
+  // the profile starts just outside the neck, so the ribbed neckline is part of
+  // the tee; the collar is wide enough to wrap the neck after the torso's z squash.
+  // Listed hem first: a lathe winds its faces outward only when y climbs.
+  // The shoulder runs through a spline so it curves instead of showing corners.
+  const collar = -1.16;
+  const at = ([x, y]: number[]) => new THREE.Vector2(x, collar + y);
+  const shoulder = new THREE.SplineCurve(
+    [[1.4, -2.46], [1.38, -1.56], [1.33, -0.86], [1.22, -0.46], [1.0, -0.22], [0.74, -0.08], [0.61, -0.02]].map(at),
+  ).getPoints(48);
+  const profile = [...shoulder, ...[[0.57, 0.02], [0.5, 0], [0.0, 0]].map(at)];
   const torso = new THREE.Mesh(keep(new THREE.LatheGeometry(profile, 72)), teeMat);
   torso.scale.z = 0.64;
   root.add(torso);
